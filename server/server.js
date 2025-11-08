@@ -1,17 +1,16 @@
-import express from "express";
-import querycontroller from "./controllers/querycontroller.js";
+import express from 'express';
+import querycontroller from './controllers/querycontroller.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = 4000;
-
-app.get("/", (req, res) => {
-  res.send("site is live!!");
+app.use(cors());
+app.get('/', (req, res) => {
+  res.send('site is live!!');
 });
 
-app.get("/countries", querycontroller.getQuery, (req, res) => {
-
-res.status(200).json(res.locals.result)
-
+app.get('/countries', querycontroller.getQuery, (req, res) => {
+  res.status(200).json(res.locals.result);
 });
 
 app.use((err, req, res, next) => {
