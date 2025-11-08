@@ -41,6 +41,7 @@ export default function App() {
     };
   }, []);
 
+  console.log('allData', allData);
   //POST request for users
   useEffect(() => {
     const postData = async () => {
