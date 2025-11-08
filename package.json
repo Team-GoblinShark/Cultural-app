@@ -1,7 +1,9 @@
 {
   "scripts": {
     "build": "vite build && tsc --noEmit",
-    "start": "node --watch server/server.js"
+    "start": "node --watch server/server.js",
+    "dev": "vite --host",
+    "preview": "vite preview"
   },
   "type": "module",
   "dependencies": {
