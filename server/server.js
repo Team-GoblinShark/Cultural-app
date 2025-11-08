@@ -1,3 +1,29 @@
 import express from "express";
+import querycontroller from "./controllers/querycontroller.js";
 
 const app = express();
+const PORT = 4000;
+
+app.get("/", (req, res) => {
+  res.send("site is live!!");
+});
+
+app.get("/countries", querycontroller.getQuery, (req, res) => {
+
+res.status(200).json(res.locals.result)
+
+});
+
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'there was an error',
+    status: 500,
+    message: 'something went wrong',
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
+
+app.listen(PORT);
+console.log(`server is running on Port ${PORT}`);
