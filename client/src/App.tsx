@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { JSX } from 'react';
+import { useState, useEffect } from "react";
+import type { JSX } from "react";
 
 interface Data {
   id: number;
@@ -26,50 +26,55 @@ export default function App() {
 
   //GET request for all data
   useEffect(() => {
+    console.log("🍎inside useEffect");
     const getData = async () => {
       try {
-        const url = 'http://localhost:3000'; //will update later
+        console.log("inside try🍊");
+        const url = "http://localhost:4000/countries"; //will update later
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error('there was an error fetching all data');
+          throw new Error("there was an error fetching all data");
         }
         const fetchedData = await response.json();
         setAllData(fetchedData);
+        console.log("✅", fetchedData);
       } catch (error) {
         throw new Error(`Could not fetch data ${error}`);
       }
     };
+    getData();
   }, []);
 
-  console.log('allData', allData);
+  console.log("🍎allData", allData);
   //POST request for users
   useEffect(() => {
     const postData = async () => {
-      const url = 'http://localhost:3000/'; //will update later
+      const url = "http://localhost:4000/"; //will update later
       const newPost = {
-        name: '',
-        country: '',
-        category: '',
-        text: '',
-        image: '',
+        name: "",
+        country: "",
+        category: "",
+        text: "",
+        image: "",
       };
       try {
         const postResponse = await fetch(url, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            Accept: 'application/JSON',
-            'content-type': 'application/JSON',
+            Accept: "application/JSON",
+            "content-type": "application/JSON",
           },
           body: JSON.stringify(newPost),
         });
         if (!postResponse.ok) {
-          throw new Error('there was a problem adding new post to database');
+          throw new Error("there was a problem adding new post to database");
         }
         const postedData = await postResponse.json();
       } catch (error) {
         throw new Error(`error during post request, ${error}`);
       }
     };
+    postData();
   }, []);
   return (
     <>
