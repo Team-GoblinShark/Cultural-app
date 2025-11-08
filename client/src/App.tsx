@@ -26,26 +26,30 @@ export default function App() {
 
   //GET request for all data
   useEffect(() => {
+    console.log('🍎inside useEffect');
     const getData = async () => {
       try {
-        const url = 'http://localhost:3000/countries'; //will update later
+        console.log('inside try🍊');
+        const url = 'http://localhost:4000/countries'; //will update later
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error('there was an error fetching all data');
         }
         const fetchedData = await response.json();
         setAllData(fetchedData);
+        console.log('✅', fetchedData);
       } catch (error) {
         throw new Error(`Could not fetch data ${error}`);
       }
     };
+    getData();
   }, []);
 
-  console.log('allData', allData);
+  console.log('🍎allData', allData);
   //POST request for users
   useEffect(() => {
     const postData = async () => {
-      const url = 'http://localhost:3000/'; //will update later
+      const url = 'http://localhost:4000/'; //will update later
       const newPost = {
         name: '',
         country: '',
@@ -70,6 +74,7 @@ export default function App() {
         throw new Error(`error during post request, ${error}`);
       }
     };
+    postData();
   }, []);
   return (
     <>
