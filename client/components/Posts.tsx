@@ -110,98 +110,108 @@ const Posts: React.FC<PostsProps> = ({ countries }) => {
       </button>
 
       {showForm && (
-        <div className="absolute top-full mt-2 bg-white border border-blue-400 shadow-lg rounded-lg w-[300px] p-4 z-1">
-          <form
-            className="post-form flex flex-col gap-3"
-            onSubmit={handleSubmit}>
-            <h2>Create a Post</h2>
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setShowForm(false)}
+          />
+          <div
+            className="absolute top-full mt-2 bg-white border border-blue-400 shadow-lg rounded-lg w-[300px] p-4 z-50"
+            onClick={(e) => e.stopPropagation()}>
+            <form
+              className="post-form flex flex-col gap-3"
+              onSubmit={handleSubmit}>
+              <h2 className ="flex justify-center">Create a Post</h2>
 
-            <label>Country</label>
-            <select
-              name="country bg-blue-500"
-              value={formData.country}
-              onChange={(e) =>
-                setFormData({ ...formData, country: e.target.value })
-              }
-              required>
-              <option value="">Choose a country</option>
-              {Array.from(newSet).map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
+              <label>Country</label>
+              <select
+                name="country bg-blue-500"
+                value={formData.country}
+                onChange={(e) =>
+                  setFormData({ ...formData, country: e.target.value })
+                }
+                required>
+                <option value="">Choose a country</option>
+                {Array.from(newSet).map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
 
-            <label>Category</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={(e) =>
-                setFormData({ ...formData, category: e.target.value })
-              }
-              required>
-              <option value="">Choose a category</option>
-              <option value="Food">Food</option>
-              <option value="Customs">Customs</option>
-              <option value="Games">Games</option>
-              <option value="Rituals">Rituals</option>
-              <option value="Media">Media</option>
-            </select>
+              <label>Category</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={(e) =>
+                  setFormData({ ...formData, category: e.target.value })
+                }
+                required>
+                <option value="">Choose a category</option>
+                <option value="Food">Food</option>
+                <option value="Customs">Customs</option>
+                <option value="Games">Games</option>
+                <option value="Rituals">Rituals</option>
+                <option value="Media">Media</option>
+              </select>
 
-            <label>Title</label>
-            <textarea
-              placeholder="Title"
-              className = "border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-              value={formData.title}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
-              required
-            />
+              <label>Title</label>
+              <textarea
+                placeholder="Title"
+                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                required
+              />
 
-            <label>Description</label>
-            <textarea
-              placeholder="Write your post here..."
-              value={formData.text}
-              onChange={(e) =>
-                setFormData({ ...formData, text: e.target.value })
-              }
-              required
-            />
+              <label>Description</label>
+              <textarea
+                placeholder="Write your post here..."
+                value={formData.text}
+                onChange={(e) =>
+                  setFormData({ ...formData, text: e.target.value })
+                }
+                required
+              />
 
-            <label>Image (optional)</label>
-            <div
-              className={`image-dropzone ${isDragging ? "dragging" : ""}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              onClick={() => document.getElementById("fileInput")?.click()}>
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="image-preview"
-                />
-              ) : (
-                <div className="dropzone-text">
-                  <p>Drag & drop an image here</p>
-                  <p>or click to browse</p>
-                </div>
-              )}
-            </div>
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileInput}
-            />
+              <label>Image (optional)</label>
+              <div
+                className={`image-dropzone ${isDragging ? "dragging" : ""}`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById("fileInput")?.click()}>
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="image-preview"
+                  />
+                ) : (
+                  <div className="dropzone-text">
+                    <p>Drag & drop an image here</p>
+                    <p>or click to browse</p>
+                  </div>
+                )}
+              </div>
+              <input
+                type="file"
+                id="fileInput"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFileInput}
+              />
 
-            <button type="submit" className ="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded transition">
-              Submit
-            </button>
-          </form>
-        </div>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded transition">
+                Submit
+              </button>
+            </form>
+          </div>
+        </>
       )}
     </div>
   );

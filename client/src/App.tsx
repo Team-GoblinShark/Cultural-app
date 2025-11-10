@@ -432,7 +432,7 @@ export default function App() {
           with others — from food and games to customs, rituals, and media. It’s
           a space for discovery, connection, and community building.
         </p>
-        <div className="homebuttons flex flex-col p-3">
+        <div className="homebuttons flex flex-row items-center justify-center p-3 w-full min gap-2.5 -ml-30">
           <button id="discover" onClick={clickToDiscover}>
             Discover activities
           </button>
