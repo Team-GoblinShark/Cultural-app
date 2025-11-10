@@ -413,6 +413,40 @@ export default function App() {
   const navigate = useNavigate();
 
   //logic for what gets displayed on the screen
+  let display;
+  if (screen === "home") {
+    display = (
+      <>
+        <h1 className="text-7xl px-5 py-5">Welcome!</h1>
+        <p className="p-1 px-5 py-5">
+          Cultour is an app designed to broaden your understanding of cultures
+          around the world through diverse experiences you can enjoy alone or
+          with others — from food and games to customs, rituals, and media. It’s
+          a space for discovery, connection, and community building.
+        </p>
+        <div className="homebuttons flex flex-row items-center justify-center p-3 w-full min gap-2.5 -ml-30">
+          <button id="discover" onClick={clickToDiscover}>
+            Discover activities
+          </button>
+          <button id="events" onClick={clickToEvents}>
+            Find events
+          </button>
+        </div>
+      </>
+    );
+  } else if (screen === "discover" && allData) {
+    display = (
+      <>
+        <Discover
+          allData={allData}
+          screen={screen}
+          setScreen={setScreen}
+          newPostData={setPostData}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <header className='homePage flex justify-center flex-col items-center text-3xl'>
