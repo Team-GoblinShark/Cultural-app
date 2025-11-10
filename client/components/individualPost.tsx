@@ -14,7 +14,7 @@ interface Posts {
 
 export default function IndividualPost({ allData }) {
   const { id } = useParams();
-  const post = allData.find((post) => post.id === Number(id));
+  const post = allData.find((post) => Number(post.id) === Number(id));
 
   if (!post) {
     return <p>Post not found!</p>;
