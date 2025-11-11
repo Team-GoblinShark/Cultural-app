@@ -1,8 +1,8 @@
-import { Pool } from "pg";
-// import type { QueryResult } from "pg";
+/* global process */
 
-const PG_URI =
-  "postgresql://postgres:uZOtBi2LWn3yXluv@db.yjijzzpnosftnbnlnkov.supabase.co:5432/postgres";
+import { Pool } from 'pg';
+
+const PG_URI = process.env.PG_URI;
 
 const pool = new Pool({
   connectionString: PG_URI,
@@ -10,7 +10,7 @@ const pool = new Pool({
 
 export default {
   query: (text, params) => {
-    console.log("executed query", text);
+    console.log('executed query', text);
     return pool.query(text, params);
   },
 };
