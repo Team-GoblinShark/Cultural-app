@@ -32,12 +32,6 @@ export default function Discover({ allData, newPostData }) {
   });
 
   console.log('🐹filterByCatgory', filterByCategory);
-  //filter data by category to pass down to components
-  const filterByFood = allData.filter((data) => data.category === 'Food');
-  const filterByGames = allData.filter((data) => data.category === 'Games');
-  const filterByCustoms = allData.filter((data) => data.category === 'Customs');
-  const filterByRutuals = allData.filter((data) => data.category === 'Rituals');
-  const filterByMedia = allData.filter((data) => data.category === 'Media');
 
   //unique set of countries from all data to be used in the dropdown
   const allCountries = allData.map((data) => data.country);

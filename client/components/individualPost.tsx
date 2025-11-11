@@ -12,6 +12,7 @@ interface Posts {
   image: string;
 }
 
+//component for all individual posts
 export default function IndividualPost({ allData }) {
   const { id } = useParams();
   const post = allData.find((post) => Number(post.id) === Number(id));
