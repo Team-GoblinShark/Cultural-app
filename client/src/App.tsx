@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import Posts from '../components/Posts';
 import Discover from '../controller/discover.tsx';
 import IndividualPost from '../components/individualPost.tsx';
@@ -105,15 +105,17 @@ export default function App() {
 
   //router structure for the whole app
   return (
-    <>
+    <div className='max-w-[800px] mx-auto mb-5'>
       <header className='homePage flex justify-center flex-col items-center text-3xl'>
-        <img
-          id='logo'
-          src='../client/assets/favicon.png'
-          width='50px'
-          height='50px'
-        ></img>
-        <h1>Cultour</h1>
+        <Link to='/'>
+          <img
+            id='logo'
+            src='../client/assets/favicon.png'
+            width='100px'
+            height='100px'
+          ></img>
+        </Link>
+        <h1 className='text-3xl'>Cultour</h1>
       </header>
 
       <div className='paths'>
@@ -122,7 +124,7 @@ export default function App() {
             path='/'
             element={
               <>
-                <h1 className='text-7xl px-5 py-5'>Welcome!</h1>
+                <h1 className='text-5xl px-5 py-5'>Welcome!</h1>
                 <p className='p-1 px-5 py-5'>
                   Cultour is an app designed to broaden your understanding of
                   cultures around the world through diverse experiences you can
@@ -131,7 +133,11 @@ export default function App() {
                   and community building.
                 </p>
                 <div className='homebuttons flex flex-col p-3'>
-                  <button id='discover' onClick={() => navigate('/discover')}>
+                  <button
+                    className='my-5'
+                    id='discover'
+                    onClick={() => navigate('/discover')}
+                  >
                     Discover activities
                   </button>
                   <button id='events' onClick={() => navigate('/events')}>
@@ -165,6 +171,6 @@ export default function App() {
           <Route path='/events/:id' element={<IndividualEvent />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }

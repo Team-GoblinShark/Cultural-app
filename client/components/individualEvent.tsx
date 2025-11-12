@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 interface Event {
@@ -16,7 +16,7 @@ interface Event {
 }
 
 interface RelatedPost {
-  post_id: number;
+  id: number;
   title: string;
   text: string;
   image: string;
@@ -77,30 +77,36 @@ export default function IndividualEvent() {
 
   return (
     <>
-      <header className='text-7xl px-5 py-5'>{eventDetails.event_title}</header>
-      <img src={eventDetails.image} width='500px' height='300px'></img>
+      <header className='text-5xl py-5'>{eventDetails.event_title}</header>
+      <img
+        className='my-5'
+        src={eventDetails.image}
+        width='500px'
+        height='300px'
+      ></img>
       <p>Event Date & Time: {eventDetails.event_datetime}</p>
       <p>Event Address: {eventDetails.address}</p>
       <p>Ticket: {eventDetails.ticket_price}</p>
       <p>{eventDetails.description}</p>
       <p>For more info, visit {eventDetails.website_url}</p>
 
-      <h2 className='text-5xl px-5 py-5 mt-10'>Related Posts</h2>
+      <h2 className='text-5xl py-5 mt-10'>Related Posts</h2>
       {relatedPosts.length > 0 ? (
         <div className='related-posts-grid grid grid-cols-2 gap-4 p-5'>
           {relatedPosts.map((post) => (
-            <div
-              key={post.post_id}
-              className='post-card border rounded-lg overflow-hidden shadow-lg'
-            >
-              <img
-                src={post.image}
-                alt={post.title}
-                className='w-full h-48 object-cover'
-              />
+            <div key={post.id} className='post-card overflow-hidden shadow-lg'>
+              <Link to={`/posts/${post.id}`}>
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className='my-5 w-full h-48 object-cover'
+                />
+              </Link>
               <div className='p-4'>
-                <h3 className='text-2xl font-bold'>{post.title}</h3>
-                <p className='text-gray-700 truncate'>{post.text}</p>
+                <Link to={`/posts/${post.id}`}>
+                  <h3 className='text-2xl font-bold'>{post.title}</h3>
+                </Link>
+                <p>{post.text}</p>
               </div>
             </div>
           ))}

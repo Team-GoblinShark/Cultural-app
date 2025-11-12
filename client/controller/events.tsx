@@ -92,7 +92,7 @@ export default function Events({ allEvents }: EventsProps) {
       {categories.map((category, index) => {
         return (
           <>
-            <div className='galleryHeader text-7xl px-5 py-5'>
+            <div className='galleryHeader text-5xl py-5'>
               <h2>{category}</h2>
             </div>
             <div className='galleryPosts grid grid-cols-3 gap-7'>

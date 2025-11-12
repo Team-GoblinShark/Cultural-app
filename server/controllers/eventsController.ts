@@ -7,9 +7,41 @@ interface EventQuery {
   endDate?: string;
 }
 
+let postImagesCache: string[] = [];
+
+const loadPostImages = async () => {
+  if (postImagesCache.length > 0) {
+    return;
+  }
+
+  try {
+    const query =
+      "SELECT DISTINCT image FROM posts WHERE image IS NOT NULL AND image != ''";
+    const result = await database.query(query, []);
+
+    postImagesCache = result.rows.map((row: { image: string }) => row.image);
+
+    console.log(
+      `[ImageService] Successfully cached ${postImagesCache.length} images from posts.`
+    );
+  } catch (err) {
+    console.error('[ImageService] Failed to load images from posts:', err);
+  }
+};
+
+const getRandomPostImage = (): string | null => {
+  if (postImagesCache.length === 0) {
+    return null;
+  }
+  const randomIndex = Math.floor(Math.random() * postImagesCache.length);
+  return postImagesCache[randomIndex];
+};
+
 export default {
   getEvents: async (req: Request, res: Response, next: NextFunction) => {
     try {
+      await loadPostImages();
+
       const { country, startDate, endDate } = req.query as EventQuery;
 
       let baseQuery = 'SELECT * FROM events';
@@ -43,6 +75,17 @@ export default {
 
       const result = await database.query(baseQuery, params);
 
+      // Set random images for all events
+      const eventsWithImages = result.rows.map((event: any) => {
+        if (!event.image) {
+          const randomImage = getRandomPostImage();
+          if (randomImage) {
+            event.image = randomImage;
+          }
+        }
+        return event;
+      });
+
       res.locals.events = result.rows;
       return next();
     } catch (err) {
@@ -57,6 +100,8 @@ export default {
 
   getEventById: async (req: Request, res: Response, next: NextFunction) => {
     try {
+      await loadPostImages();
+
       const { id } = req.params;
 
       const eventQuery = 'SELECT * FROM events WHERE id = $1';
@@ -67,6 +112,15 @@ export default {
       }
 
       const eventDetails = eventResult.rows[0];
+
+      // Set image for this event
+      if (!eventDetails.image) {
+        const randomImage = getRandomPostImage();
+        if (randomImage) {
+          eventDetails.image = randomImage;
+        }
+      }
+
       const { country } = eventDetails;
 
       const postsQuery = 'SELECT * FROM posts WHERE country = $1 LIMIT 2';
